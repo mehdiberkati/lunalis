@@ -1,0 +1,112 @@
+/* Theme Variations */
+.theme-fire {
+  --primary-color: #f97316;
+  --secondary-color: #dc2626;
+  --accent-color: #fbbf24;
+  --gradient-primary: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+  --gradient-secondary: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+}
+
+.theme-nature {
+  --primary-color: #10b981;
+  --secondary-color: #059669;
+  --accent-color: #84cc16;
+  --gradient-primary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-secondary: linear-gradient(135deg, #84cc16 0%, #10b981 100%);
+}
+
+.theme-cosmic {
+  --primary-color: #8b5cf6;
+  --secondary-color: #a855f7;
+  --accent-color: #ec4899;
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  --gradient-secondary: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+}
+
+.intensity-glow {
+  animation: intensityGlow 2s ease-in-out infinite;
+}
+
+.intensity-modal {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.intensity-level {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  color: #fff;
+  box-shadow: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intensity-level:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px var(--level-glow, rgba(255,255,255,0.3));
+}
+
+.intensity-level:hover .level-title {
+  color: var(--level-glow, var(--accent-color));
+  text-shadow: 0 0 8px var(--level-glow, rgba(255,255,255,0.6));
+}
+
+.intensity-level::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  background: var(--level-color, var(--accent-color));
+  border-radius: 8px 0 0 8px;
+}
+
+
+.level-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.level-info {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.level-title {
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.level-role {
+  color: var(--level-glow, var(--accent-color));
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.level-desc {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+@keyframes intensityGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px var(--intensity-color, #ffff66);
+  }
+  50% {
+    text-shadow: 0 0 15px var(--intensity-color, #ffff66);
+  }
+}
+

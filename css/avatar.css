@@ -1,0 +1,383 @@
+/* =========================================================================
+   Avatar SVG — Styles et animations par rang
+   Chaque rang (E → SSS) débloque de nouvelles couches visuelles.
+   Les layers sont cachés par défaut et activés via .avatar-rank-X
+   ========================================================================= */
+
+/* --- Conteneur de la scène avatar --- */
+.avatar-scene {
+  width: 180px;
+  height: 240px;
+  margin: 0 auto 0.25rem;
+  position: relative;
+  overflow: visible;
+}
+
+.avatar-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* =========================================================================
+   Base — Toutes les couches d'effet sont cachées par défaut
+   ========================================================================= */
+
+.av-aura {
+  opacity: 0;
+  filter: blur(18px);
+  transition: opacity 0.6s, fill 0.6s;
+}
+
+.av-halo {
+  opacity: 0;
+  fill: none;
+  stroke-width: 2;
+  transition: opacity 0.6s;
+}
+
+.av-particles {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.av-flames {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.av-cape {
+  opacity: 0;
+  transition: opacity 0.6s, fill 0.6s;
+}
+
+.av-lines {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.av-lines line {
+  stroke: transparent;
+  stroke-width: 1;
+  fill: none;
+  transition: stroke 0.5s;
+}
+
+.av-armor {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* --- Personnage de base (couleurs par défaut) --- */
+.av-hood       { fill: #3a3a4a; transition: fill 0.5s; }
+.av-body       { fill: #2a2a3a; transition: fill 0.5s; }
+.av-face       { fill: #1a1a28; transition: fill 0.5s; }
+.av-eye        { fill: #555; transition: fill 0.5s, filter 0.5s; }
+.av-shoulders  { stroke: #4a4a5a; fill: none; stroke-width: 2.5; transition: stroke 0.5s; }
+
+/* =========================================================================
+   Rang E — Silhouette grise, posture basse, pas d'effets
+   ========================================================================= */
+.avatar-rank-e .av-hood       { fill: #35354a; }
+.avatar-rank-e .av-body       { fill: #25253a; }
+.avatar-rank-e .av-face       { fill: #18182a; }
+.avatar-rank-e .av-eye        { fill: #606070; }
+.avatar-rank-e .av-shoulders  { stroke: #45455a; }
+
+/* =========================================================================
+   Rang D — Légère lueur, couleurs plus vives
+   ========================================================================= */
+.avatar-rank-d .av-hood       { fill: #354560; }
+.avatar-rank-d .av-body       { fill: #253550; }
+.avatar-rank-d .av-face       { fill: #182535; }
+.avatar-rank-d .av-eye        { fill: #00d4ff; filter: url(#avGlow); }
+.avatar-rank-d .av-shoulders  { stroke: #456580; }
+.avatar-rank-d .av-aura       { opacity: 0.25; fill: #00a0d4; }
+
+/* =========================================================================
+   Rang C — Particules subtiles, pose plus droite
+   ========================================================================= */
+.avatar-rank-c .av-hood       { fill: #354068; }
+.avatar-rank-c .av-body       { fill: #253058; }
+.avatar-rank-c .av-face       { fill: #182038; }
+.avatar-rank-c .av-eye        { fill: #00e5ff; filter: url(#avGlow); }
+.avatar-rank-c .av-shoulders  { stroke: #4a6090; }
+.avatar-rank-c .av-aura       { opacity: 0.35; fill: #0080e0; }
+.avatar-rank-c .av-particles  { opacity: 1; }
+.avatar-rank-c .av-p          { fill: #00aaff; }
+
+/* =========================================================================
+   Rang B — Aura bleue, détails lumineux (lignes d'énergie)
+   ========================================================================= */
+.avatar-rank-b .av-hood       { fill: #2a3578; }
+.avatar-rank-b .av-body       { fill: #1a2568; }
+.avatar-rank-b .av-face       { fill: #121840; }
+.avatar-rank-b .av-eye        { fill: #40c8ff; filter: url(#avGlow); }
+.avatar-rank-b .av-shoulders  { stroke: #4080b0; }
+.avatar-rank-b .av-aura       { opacity: 0.45; fill: #2060e0; }
+.avatar-rank-b .av-particles  { opacity: 1; }
+.avatar-rank-b .av-p          { fill: #4090ff; }
+.avatar-rank-b .av-lines      { opacity: 0.5; }
+.avatar-rank-b .av-lines line { stroke: #4090ff; stroke-width: 1; }
+
+/* =========================================================================
+   Rang A — Aura violette intense, flammes d'énergie
+   ========================================================================= */
+.avatar-rank-a .av-hood       { fill: #3a2078; }
+.avatar-rank-a .av-body       { fill: #2a1068; }
+.avatar-rank-a .av-face       { fill: #1a0840; }
+.avatar-rank-a .av-eye        { fill: #c060ff; filter: url(#avGlow); }
+.avatar-rank-a .av-shoulders  { stroke: #7040a0; }
+.avatar-rank-a .av-aura       { opacity: 0.55; fill: #7020e0; }
+.avatar-rank-a .av-particles  { opacity: 1; }
+.avatar-rank-a .av-p          { fill: #a050ff; }
+.avatar-rank-a .av-lines      { opacity: 0.7; }
+.avatar-rank-a .av-lines line { stroke: #a060ff; stroke-width: 1.5; }
+.avatar-rank-a .av-flames     { opacity: 1; }
+.avatar-rank-a .av-flame      { fill: #8030e0; }
+
+/* Pulsation des yeux A+ */
+.avatar-rank-a .av-eye,
+.avatar-rank-s .av-eye,
+.avatar-rank-ss .av-eye,
+.avatar-rank-sss .av-eye {
+  animation: avEyePulse 2.2s ease-in-out infinite;
+}
+
+/* =========================================================================
+   Rang S — Aura dorée, armure lumineuse, particules
+   ========================================================================= */
+.avatar-rank-s .av-hood          { fill: #4a3520; }
+.avatar-rank-s .av-body          { fill: #3a2510; }
+.avatar-rank-s .av-face          { fill: #2a1808; }
+.avatar-rank-s .av-eye           { fill: #ffd700; filter: url(#avGlowStrong); }
+.avatar-rank-s .av-shoulders     { stroke: #c09030; }
+.avatar-rank-s .av-aura          { opacity: 0.6; fill: #d49000; }
+.avatar-rank-s .av-particles     { opacity: 1; }
+.avatar-rank-s .av-p             { fill: #ffcc00; }
+.avatar-rank-s .av-lines         { opacity: 0.75; }
+.avatar-rank-s .av-lines line    { stroke: #ffc040; stroke-width: 1.5; }
+.avatar-rank-s .av-flames        { opacity: 1; }
+.avatar-rank-s .av-flame         { fill: #ff8c00; }
+.avatar-rank-s .av-armor         { opacity: 1; }
+.avatar-rank-s .av-plate         { fill: #ffd700; stroke: #d4a000; stroke-width: 1; }
+
+/* =========================================================================
+   Rang SS — Transformation majeure, effets roses/violets, cape d'énergie
+   ========================================================================= */
+.avatar-rank-ss .av-hood         { fill: #4a1058; }
+.avatar-rank-ss .av-body         { fill: #3a0848; }
+.avatar-rank-ss .av-face         { fill: #280530; }
+.avatar-rank-ss .av-eye          { fill: #ff40ff; filter: url(#avGlowStrong); }
+.avatar-rank-ss .av-shoulders    { stroke: #a040c0; }
+.avatar-rank-ss .av-aura         { opacity: 0.7; fill: #c020a0; }
+.avatar-rank-ss .av-particles    { opacity: 1; }
+.avatar-rank-ss .av-p            { fill: #ff60d0; }
+.avatar-rank-ss .av-lines        { opacity: 0.9; }
+.avatar-rank-ss .av-lines line   { stroke: #ff40c0; stroke-width: 2; }
+.avatar-rank-ss .av-flames       { opacity: 1; }
+.avatar-rank-ss .av-flame        { fill: #c020ff; }
+.avatar-rank-ss .av-armor        { opacity: 1; }
+.avatar-rank-ss .av-plate        { fill: #ff40ff; stroke: #c020c0; stroke-width: 1; }
+.avatar-rank-ss .av-cape         { opacity: 0.6; fill: #7018a8; }
+
+/* =========================================================================
+   Rang SSS — Mode transcendant : flottaison, halo complet, épique
+   ========================================================================= */
+.avatar-rank-sss .av-hood        { fill: #2a1068; }
+.avatar-rank-sss .av-body        { fill: #1a0858; }
+.avatar-rank-sss .av-face        { fill: #120540; }
+.avatar-rank-sss .av-eye         { fill: #ffffff; filter: url(#avGlowStrong); }
+.avatar-rank-sss .av-shoulders   { stroke: #a070d0; }
+.avatar-rank-sss .av-aura        { opacity: 0.85; fill: #8040d0; }
+.avatar-rank-sss .av-particles   { opacity: 1; }
+.avatar-rank-sss .av-p           { fill: #e0b0ff; }
+.avatar-rank-sss .av-lines       { opacity: 1; }
+.avatar-rank-sss .av-lines line  { stroke: #c080ff; stroke-width: 2; }
+.avatar-rank-sss .av-flames      { opacity: 1; }
+.avatar-rank-sss .av-flame       { fill: #a040ff; }
+.avatar-rank-sss .av-armor       { opacity: 1; }
+.avatar-rank-sss .av-plate       { fill: #c080ff; stroke: #a060e0; stroke-width: 1.5; }
+.avatar-rank-sss .av-cape        { opacity: 0.75; fill: #5818a0; }
+.avatar-rank-sss .av-halo        { opacity: 1; stroke: #e0c0ff; filter: url(#avGlowStrong); }
+
+/* Flottaison du personnage SSS */
+.avatar-rank-sss .avatar-svg {
+  animation: avFloat 3s ease-in-out infinite;
+}
+
+/* =========================================================================
+   Animations — Particules
+   Chaque particule a un délai et une durée légèrement différents.
+   ========================================================================= */
+
+.av-p {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.avatar-rank-c .av-p, .avatar-rank-b .av-p,
+.avatar-rank-a .av-p, .avatar-rank-s .av-p,
+.avatar-rank-ss .av-p, .avatar-rank-sss .av-p {
+  animation-name: avParticle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.av-p:nth-child(1) { animation-duration: 3.8s; animation-delay: 0s; }
+.av-p:nth-child(2) { animation-duration: 4.2s; animation-delay: 0.6s; }
+.av-p:nth-child(3) { animation-duration: 3.5s; animation-delay: 1.2s; }
+.av-p:nth-child(4) { animation-duration: 4.5s; animation-delay: 0.3s; }
+.av-p:nth-child(5) { animation-duration: 3.2s; animation-delay: 0.9s; }
+.av-p:nth-child(6) { animation-duration: 4.0s; animation-delay: 1.5s; }
+.av-p:nth-child(7) { animation-duration: 3.6s; animation-delay: 0.4s; }
+.av-p:nth-child(8) { animation-duration: 4.8s; animation-delay: 1.0s; }
+
+@keyframes avParticle {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50%      { transform: translateY(-18px) scale(1.4); opacity: 1; }
+}
+
+/* =========================================================================
+   Animations — Flammes
+   ========================================================================= */
+
+.avatar-rank-a .av-flame, .avatar-rank-s .av-flame,
+.avatar-rank-ss .av-flame, .avatar-rank-sss .av-flame {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation-name: avFlame;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.av-flame:nth-child(1) { animation-duration: 1.8s; animation-delay: 0s; }
+.av-flame:nth-child(2) { animation-duration: 2.2s; animation-delay: 0.4s; }
+.av-flame:nth-child(3) { animation-duration: 2.0s; animation-delay: 0.8s; }
+
+@keyframes avFlame {
+  0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.7; }
+  50%      { transform: scaleY(1.25) scaleX(0.85); opacity: 1; }
+}
+
+/* =========================================================================
+   Animations — Cape
+   ========================================================================= */
+
+.avatar-rank-ss .av-cape,
+.avatar-rank-sss .av-cape {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: avCape 5s ease-in-out infinite;
+}
+
+@keyframes avCape {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(1.06); }
+}
+
+/* =========================================================================
+   Animations — Halo (SSS)
+   ========================================================================= */
+
+.avatar-rank-sss .av-halo {
+  animation: avHalo 2.5s ease-in-out infinite;
+}
+
+@keyframes avHalo {
+  0%, 100% { opacity: 0.7; stroke-width: 2; }
+  50%      { opacity: 1; stroke-width: 3; }
+}
+
+/* =========================================================================
+   Animations — Flottaison (SSS)
+   ========================================================================= */
+
+@keyframes avFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* =========================================================================
+   Animations — Pulsation des yeux (A+)
+   ========================================================================= */
+
+@keyframes avEyePulse {
+  0%, 100% { opacity: 0.75; }
+  50%      { opacity: 1; }
+}
+
+/* =========================================================================
+   Animations — Aura pulsation (S+)
+   ========================================================================= */
+
+.avatar-rank-s .av-aura,
+.avatar-rank-ss .av-aura,
+.avatar-rank-sss .av-aura {
+  animation: avAuraPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes avAuraPulse {
+  0%, 100% { opacity: var(--av-aura-base, 0.6); transform: scale(1); }
+  50%      { opacity: calc(var(--av-aura-base, 0.6) + 0.15); transform: scale(1.05); }
+}
+
+.avatar-rank-s  { --av-aura-base: 0.6; }
+.avatar-rank-ss { --av-aura-base: 0.7; }
+.avatar-rank-sss { --av-aura-base: 0.85; }
+
+/* =========================================================================
+   Animation — Flash XP (gain d'XP)
+   ========================================================================= */
+
+.avatar-xp-flash .avatar-svg {
+  animation: avXPFlash 0.7s ease-out;
+}
+
+@keyframes avXPFlash {
+  0%   { filter: brightness(1); }
+  25%  { filter: brightness(1.8) drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)); }
+  100% { filter: brightness(1); }
+}
+
+/* =========================================================================
+   Animation — Montée de rang (dissolution + apparition)
+   ========================================================================= */
+
+.avatar-rank-up .avatar-svg {
+  animation: avRankUp 0.6s ease-out forwards;
+}
+
+@keyframes avRankUp {
+  0%   { transform: scale(1); filter: brightness(1); }
+  50%  { transform: scale(1.15); filter: brightness(2.5) drop-shadow(0 0 25px rgba(255, 255, 255, 0.9)); }
+  100% { transform: scale(0.9); filter: brightness(3); opacity: 0; }
+}
+
+.avatar-rank-reveal .avatar-svg {
+  animation: avRankReveal 0.8s ease-out;
+}
+
+@keyframes avRankReveal {
+  0%   { transform: scale(0.7); opacity: 0; filter: brightness(2.5); }
+  60%  { transform: scale(1.05); opacity: 1; filter: brightness(1.3); }
+  100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+}
+
+/* =========================================================================
+   Responsive
+   ========================================================================= */
+
+@media (max-width: 768px) {
+  .avatar-scene {
+    width: 150px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .avatar-scene {
+    width: 120px;
+    height: 165px;
+  }
+}
