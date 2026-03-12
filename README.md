@@ -15,11 +15,7 @@ Application Electron de gamification pour booster la productivité et la discipl
 # 1. Installer les dependances
 npm install
 
-# 2. Configurer les credentials OAuth
-cp .env.example .env
-# Editez .env avec vos propres Client ID / Secret (voir section Configuration)
-
-# 3. Lancer l'application
+# 2. Lancer l'application
 npm start
 ```
 
@@ -29,23 +25,6 @@ npm start
 npm run package-win
 # => release/Lunalis-win32-x64/Lunalis.exe
 ```
-
-## Configuration (.env)
-
-Copiez `.env.example` en `.env` et remplissez vos credentials :
-
-| Variable | Description |
-|----------|-------------|
-| `SPOTIFY_CLIENT_ID` | Client ID de votre app Spotify Developer |
-| `SPOTIFY_CLIENT_SECRET` | Client Secret Spotify |
-| `SPOTIFY_REDIRECT_URI` | URI de redirection Spotify (defaut: `http://127.0.0.1:8888/callback`) |
-| `GOOGLE_CLIENT_ID` | Client ID Google Cloud Console (API Calendar) |
-| `GOOGLE_CLIENT_SECRET` | Client Secret Google |
-| `GOOGLE_REDIRECT_URI` | URI de redirection Google (defaut: `http://localhost`) |
-
-Pour obtenir ces credentials :
-- **Spotify** : Creez une app sur [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-- **Google** : Activez l'API Calendar dans [Google Cloud Console](https://console.cloud.google.com/) et creez des identifiants OAuth 2.0
 
 ## Fonctionnalites
 
